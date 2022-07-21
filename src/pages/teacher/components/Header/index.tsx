@@ -8,10 +8,10 @@ const Header:NextPage = () =>{
       <Container>
         <Logo/>
         <NavBar>
-            <Link href=''>Home</Link>
-            <Link href=''>Materia</Link>
-            <Link href=''>Alunos</Link>
-            <Link href=''>Mensagens</Link>
+            <Link href='/teacher'>Home</Link>
+            <Link href='/teacher/matter'>Materia</Link>
+            <Link href='/teacher/studant'>Alunos</Link>
+            <Link href='/teacher/message'>Mensagens</Link>
         </NavBar>
         <LeftSide>
           <BellIcon/>
