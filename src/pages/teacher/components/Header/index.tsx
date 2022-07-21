@@ -1,5 +1,6 @@
 import type { NextPage } from 'next'
 import Link from 'next/link';
+import { useState } from 'react';
 import Logo from '../../../components/Logo';
 import {Container, NavBar, LeftSide, 
           BellIcon, SettingsModal, UserIcon, ExitIcon}
@@ -7,8 +8,9 @@ import {Container, NavBar, LeftSide,
 
 const Header:NextPage = () =>{
 
+  const [modalVisible, setModalVisible] = useState<boolean>(false);
   function handleModal() {
-
+     
   }
     return (
       <Container>
@@ -21,12 +23,15 @@ const Header:NextPage = () =>{
         </NavBar>
         <LeftSide>
           <BellIcon/>
-          <div onClick={handleModal}>
-            <SettingsModal>
-              <div className="lineModal">
-                <UserIcon/>
-                <span>Meu perfil</span>
-              </div>
+          <div className='pic' onClick={()=>setModalVisible(!modalVisible)}>
+            <SettingsModal className={modalVisible ? 'block' : 'none'}>
+              <Link href='/teacher/profile'>
+                <div className="lineModal">
+                    <UserIcon/>
+                    <span>Meu perfil</span>
+                </div>
+              </Link>
+              
               <div className="lineModal">
                 <ExitIcon/>
                 <span>Sair da plataforma</span>

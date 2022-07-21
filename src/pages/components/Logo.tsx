@@ -6,10 +6,10 @@ const LogoStyle = styled.h1`
     font-weight: 400;
 
     span{
-        color: var(--blue-500);
-        color: var(--black);
+        color: var(--blue-300);
+        /* color: var(--black); */
         font-size: 1.8rem;
-        font-weight: 600;
+        /* font-weight: 600; */
         text-decoration: underline;
     }
 `;

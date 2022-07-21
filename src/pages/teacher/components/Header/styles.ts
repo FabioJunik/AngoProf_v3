@@ -32,25 +32,25 @@ export const LeftSide = styled.div`
     display: flex;
     align-items: center;
 
-    > div{
+    .pic{
         position: relative;
         width: 5rem;
         height: 5rem;
         border-radius: 50%;
         background-color: var(--blue-300);
+        cursor: pointer;
     }
 `;
 
 export const BellIcon = styled(FaRegBell)`
     font-size: 2.5rem;
-    color: var(--black);
+    color: var(--blue-300);
     margin-right: 2rem;
     cursor: pointer;
 `;
 
 export const SettingsModal = styled.div`
     width: 25rem;
-    height: 15rem;  
     padding: 2rem 0;
 
     position: absolute;
@@ -61,7 +61,9 @@ export const SettingsModal = styled.div`
     border: 1px solid var(--gray-100);
     background-color: var(--white);
     box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    display: ${props=> props.className};
 
+    cursor: default;
     .lineModal{
         height: 4rem;
         margin: 0 2rem;
