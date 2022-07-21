@@ -20,6 +20,8 @@ export default createGlobalStyle`
 
     --blue-300: #51b4f7;
     --blue-500: #168492;
+
+    --red-500: #d92323;
     
   }
 
@@ -34,5 +36,10 @@ export default createGlobalStyle`
 
   button{
     cursor: pointer;
+    transition: filter 0.1s;
+
+    &:hover {
+      filter: brightness(0.9);
+    }
   }
 `;

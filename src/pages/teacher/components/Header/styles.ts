@@ -5,6 +5,7 @@ export const Container = styled.header`
     width: 100%;
     height: 6rem;
     padding: 0 5rem;
+    position: fixed;
 
     background-color: var(--blue-500);
 
@@ -15,10 +16,13 @@ export const Container = styled.header`
 
 export const NavBar = styled.ul`
     a{
-        font-size : 1.6rem;
-        margin-left: 1.5rem;
+        font-size : 1.4rem;
         color: var(--black);
         color: var(--white);
+
+        & + a{
+            margin-left: 1.8rem;
+        }
     }
 `;
 
