@@ -1,9 +1,15 @@
 import type { NextPage } from 'next'
 import Link from 'next/link';
 import Logo from '../../../components/Logo';
-import {Container, NavBar, LeftSide, BellIcon} from './styles';
+import {Container, NavBar, LeftSide, 
+          BellIcon, SettingsModal, UserIcon, ExitIcon}
+ from './styles';
 
 const Header:NextPage = () =>{
+
+  function handleModal() {
+
+  }
     return (
       <Container>
         <Logo/>
@@ -15,7 +21,18 @@ const Header:NextPage = () =>{
         </NavBar>
         <LeftSide>
           <BellIcon/>
-          <div></div>
+          <div onClick={handleModal}>
+            <SettingsModal>
+              <div className="lineModal">
+                <UserIcon/>
+                <span>Meu perfil</span>
+              </div>
+              <div className="lineModal">
+                <ExitIcon/>
+                <span>Sair da plataforma</span>
+              </div>
+            </SettingsModal>
+          </div>
         </LeftSide>
       </Container>
     )
