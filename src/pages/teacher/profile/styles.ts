@@ -17,13 +17,6 @@ export const Content = styled.div`
     grid-template-areas: "title title title"
                          "column1 column2 column3";
 
-    h1{
-        width: 100%;
-        color: var(--blue-500);
-        font-size: 2.3rem;
-        font-weight: 500;
-    }
-
     .column1{
         grid-area: column1;
     }

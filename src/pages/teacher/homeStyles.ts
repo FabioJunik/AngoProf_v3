@@ -1,27 +1,14 @@
 import styled from "styled-components";
+import ButtonDefault from "./components/Button"
+import ContentDefault from "./components/Content"
+
 
 export const Container = styled.div`
 
 `;
 
-export const Content = styled.div`
-    width: 100%;
-    min-height: 100vh;
-    padding: 10rem 5rem;
-
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 5rem;
-
-    background-color: var(--gray-100);
-
-    h1{
-        width: 100%;
-        color: var(--blue-500);
-        font-size: 2.3rem;
-        font-weight: 500;
-    }
+export const Content = styled(ContentDefault)`
+    
 `;
 
 export const Card = styled.div`
@@ -79,15 +66,5 @@ export const Card = styled.div`
 
 `;
 
-export const Button = styled.button`
-    width: 45%;
-    height: 4rem;
-
-    border: none;
-    border-radius: .5rem;
-
-    background-color: ${props => props.color};
-    color: var(--white);
-    font-size: 1.5rem;  
-
+export const Button = styled(ButtonDefault)`
 `;

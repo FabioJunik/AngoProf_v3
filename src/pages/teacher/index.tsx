@@ -1,5 +1,6 @@
 import type { NextPage } from 'next'
 import Header from './components/Header';
+import Title from "./components/Title";
 import {Container, Content, Card, Button} from './homeStyles';
 
 const TeacherHome:NextPage = () =>{
@@ -7,7 +8,7 @@ const TeacherHome:NextPage = () =>{
         <Container>
             <Header/>
             <Content>
-                <h1>Pedidos de aulas</h1>
+                <Title>Pedidos de aulas</Title>
                 <Card>
                     <div className='topCard'>
                         <div className='pic'></div>

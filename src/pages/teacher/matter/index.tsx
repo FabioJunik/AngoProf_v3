@@ -1,5 +1,6 @@
 import type { NextPage } from "next";
 import Header from "../components/Header";
+import Title from "../components/Title";
 import { Container, Content, MatterCard, Button } from "./styles";
 
 const Matter:NextPage = () =>{
@@ -7,7 +8,7 @@ const Matter:NextPage = () =>{
         <Container>
             <Header/>
             <Content>
-                <h1>Materias Lecionadas</h1>
+                <Title>Materias Lecionadas</Title>
                 <MatterCard>
                     <div className="topCard">
                         <h2>Matematica</h2>

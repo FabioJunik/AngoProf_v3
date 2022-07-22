@@ -1,5 +1,6 @@
 import type {NextPage} from 'next';
 import Header from '../components/Header';
+import Title from "../components/Title";
 import {Container, Content, Card, PicContainer, Input, Button} from './styles';
 
 const Profile:NextPage = ()=>{
@@ -7,7 +8,7 @@ const Profile:NextPage = ()=>{
         <Container>
             <Header/>
             <Content>
-                <h1>Meu perfil</h1>
+                <Title>Meu perfil</Title>
                 <div className='column1'>
                     <Card>
                         <h2>Foto de perfil</h2>
