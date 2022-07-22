@@ -18,7 +18,7 @@ const Header:NextPage = () =>{
         <NavBar>
             <Link href='/teacher'>Home</Link>
             <Link href='/teacher/matter'>Materia</Link>
-            <Link href='/teacher/studant'>Alunos</Link>
+            <Link href='/teacher/student'>Alunos</Link>
             <Link href='/teacher/message'>Mensagens</Link>
         </NavBar>
         <LeftSide>
