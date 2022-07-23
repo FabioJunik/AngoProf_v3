@@ -52,7 +52,8 @@ const Login:NextPage = () => {
             if(user.email === email && user.password === password) {
                 if(user.typeUser === 'teacher'){
                     Router.push('/teacher');
-                    provideUser(user)
+                    provideUser(user);
+                    localStorage.setItem('user', JSON.stringify(user));
                 }   
             }
         })

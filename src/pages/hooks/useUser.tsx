@@ -21,8 +21,17 @@ interface userContextData {
 const UserContext = createContext<userContextData>({}as userContextData);
 
 export function UserProvider({children}:pageProps){
+    
+    let userLocal = {};
+    
 
-    const [user, setUser]= useState<userProps>({}as userProps);
+    if (typeof window !== 'undefined') {
+        if(localStorage.getItem('user'))
+          userLocal = JSON.parse(localStorage.getItem('user') || '');
+          console.log(localStorage.getItem('user'))
+    }
+
+    const [user, setUser]= useState<userProps>(userLocal as userProps);
     
     return (
         <UserContext.Provider value={{user, setUser}}>
