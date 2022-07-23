@@ -37,9 +37,8 @@ export const Container = styled.div`
     }
 `;
 
-export const RegisterContainer = styled.div`
+export const RegisterForm = styled.form`
     width: 45rem;
-    height: 50rem;
     background-color: #fff;
     padding: 4rem;
     border-radius: 3rem;
@@ -50,6 +49,21 @@ export const RegisterContainer = styled.div`
         color: var(--blue-500);
         font-size: 28px;
         margin-bottom: 1rem;
+    }
+
+    div{
+        font-size: 1.5rem;
+        padding: 1rem 0.5rem;
+        
+        div{
+            display: inline-block;
+            margin-right: 1rem;
+            height: 4rem;
+
+            span{
+                margin-right: 0.5rem;
+            }
+        }
     }
 `;
 
