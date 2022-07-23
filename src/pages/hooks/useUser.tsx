@@ -10,6 +10,7 @@ interface userProps {
     lastname: string;
     email: string;
     password: string;
+    gender?: string;
     phone1?: string;
     phone2?: string;
     typeUser: string;

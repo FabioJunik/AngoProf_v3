@@ -10,6 +10,7 @@ interface UserProps {
     id: string;
     name: string;
     lastname: string;
+    gender: string;
     email: string;
     password: string;
     typeUser?: string;
@@ -24,6 +25,7 @@ const Profile:NextPage = ()=>{
     const [lastname, setLastname] = useState<string>(user.lastname);
     const [email, setEmail] = useState<string>(user.email);
     const [password, setPassword] = useState<string>(user.password);
+    const [gender, setGender] = useState<string>(user.gender || '');
     const [phone1, setPhone1] = useState<string>(user.phone1 || '');
     const [phone2, setPhone2] = useState<string>(user.phone2 || '');
 
@@ -34,6 +36,7 @@ const Profile:NextPage = ()=>{
             id: user.id,
             name,
             lastname,
+            gender,
             email,
             password,
             phone1,
@@ -77,13 +80,20 @@ const Profile:NextPage = ()=>{
                 <div className='column2'>
                     <Card>
                         <h2>Informações gerais</h2>
-                        <Input placeholder='Nome' value={name}
-                        onChange={e=>setName(e.target.value)}
-                    />
-                        <Input placeholder='Sobrenome' value={lastname}
-                        onChange={e=>setLastname(e.target.value)}
-                    />
-                        <Input placeholder='Genero'/>
+                        <Input 
+                            placeholder='Nome' 
+                            value={name}
+                            onChange={e=>setName(e.target.value)}
+                        />
+                        <Input 
+                            placeholder='Sobrenome' 
+                            value={lastname}
+                            onChange={e=>setLastname(e.target.value)}
+                        />
+                        <select value={gender} onChange={e=>{setGender(e.target.value)}}>
+                            <option value="Masculino">Masculino</option>
+                            <option value="Femenino">Femenino</option>
+                        </select>
                         <Input placeholder='Data de nascimento'/>
                         <Button onClick={updateUserData}>Salvar</Button>
                     </Card>

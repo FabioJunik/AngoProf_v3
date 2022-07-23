@@ -51,6 +51,15 @@ export const Card = styled.div`
         color: var(--blue-300);
         margin-bottom: 1rem;
     }
+
+    select{
+        width: 100%;
+        border-radius:.5rem;
+        border: 1px solid #eee;
+        padding: 1.5rem;
+        margin-bottom: 1rem;
+        font-size: 1.4rem;
+    }
 `;
 
 export const PicContainer =styled.div`
