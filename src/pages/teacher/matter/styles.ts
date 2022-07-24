@@ -1,35 +1,18 @@
 import styled from "styled-components";
-import ButtonDefault from "../../components/Button"
-import ContentDefault from "../../components/Content"
+import * as cs from "../../components/styledComponents"
 
 export const Container = styled.div`
 
 `;
 
-export const Content = styled(ContentDefault)`
+export const Content = styled(cs.Content)`
 `;
 
-export const MatterCard = styled.div`
-    width: 30%;
-    max-width: 35rem;
-    min-width: 30rem;
-    height: 22.5rem;
-    padding: 3rem;
-
-    display: flex;
-    justify-content: space-between;
-    flex-direction: column;
-
-    background-color: #fff;
-    border-radius: 1rem;
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
-
-    & > div{
-        display: flex;
-        justify-content: space-between;
-    }
+export const MatterCard = styled(cs.Card)`
+    height: 22rem;
 
     .topCard{
+        justify-content: space-between;
         h2{
             color: var(--blue-500);
             font-size: 2rem;
@@ -39,12 +22,8 @@ export const MatterCard = styled.div`
             color: var(--blue-300);
         }
     }   
-    .midiumCard{
-        flex-direction: column;
-        font-size: 1.4rem;
-    }
 `;
 
-export const Button = styled(ButtonDefault)`
+export const Button = styled(cs.Button)`
 
 `;

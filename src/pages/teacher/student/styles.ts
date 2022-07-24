@@ -1,13 +1,12 @@
 import styled from "styled-components";
-import ContentDefault from "../../components/Content";
-import ButtonDefault from "../../components/Button";
+import * as sc from "../../components/styledComponents";
 
 export const Container = styled.div``;
 
-export const Content = styled(ContentDefault)`
+export const Content = styled(sc.Content)`
 `;
 
-export const Button = styled(ButtonDefault)`
+export const Button = styled(sc.Button)`
     width: 10rem;
     height: 3.5rem;
     font-size: 1.4rem;
@@ -20,15 +19,13 @@ export const StudentCard = styled.div`
     padding: 2rem;
     
     border-radius: 1rem;
+    background-color: var(--white);
 
     display:flex;
     justify-content: space-between;
     align-items: center;
 
-    background-color: var(--white);
-
     div:first-child{
-        /* background-color: red; */
         display: flex;
         gap: 2rem;
     }
@@ -39,7 +36,6 @@ export const StudentCard = styled.div`
 
         border-radius: 50%;
         background-color: var(--blue-300);
-
     }
 
     h2{
@@ -51,8 +47,5 @@ export const StudentCard = styled.div`
         font-size: 1.2rem;
         font-weight: 500;
     }
-
-
-
 `;
 

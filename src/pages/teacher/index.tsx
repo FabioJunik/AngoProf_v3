@@ -1,7 +1,7 @@
 import type { NextPage } from 'next'
 import Header from '../components/Header';
-import Title from "../components/Title";
-import {Container, Content, Card, Button} from './homeStyles';
+import {Title} from "../components/styledComponents";
+import {Container, Content, OrderCard, Button} from './homeStyles';
 
 const TeacherHome:NextPage = () =>{
     return (
@@ -9,7 +9,7 @@ const TeacherHome:NextPage = () =>{
             <Header/>
             <Content>
                 <Title>Pedidos de aulas</Title>
-                <Card>
+                <OrderCard>
                     <div className='topCard'>
                         <div className='pic'></div>
                         <div>
@@ -26,8 +26,8 @@ const TeacherHome:NextPage = () =>{
                         <Button color='var(--blue-500)'>Aceitar</Button>
                         <Button color='var(--red-500)'>Negar</Button>
                     </div>                    
-                </Card>
-                <Card>
+                </OrderCard>
+                <OrderCard>
                     <div className='topCard'>
                         <div className='pic'></div>
                         <div>
@@ -44,8 +44,8 @@ const TeacherHome:NextPage = () =>{
                         <Button color='var(--blue-500)'>Aceitar</Button>
                         <Button color='var(--red-500)'>Negar</Button>
                     </div>                    
-                </Card>
-                <Card>
+                </OrderCard>
+                <OrderCard>
                     <div className='topCard'>
                         <div className='pic'></div>
                         <div>
@@ -62,8 +62,8 @@ const TeacherHome:NextPage = () =>{
                         <Button color='var(--blue-500)'>Aceitar</Button>
                         <Button color='var(--red-500)'>Negar</Button>
                     </div>                    
-                </Card>
-                <Card>
+                </OrderCard>
+                <OrderCard>
                     <div className='topCard'>
                         <div className='pic'></div>
                         <div>
@@ -80,8 +80,8 @@ const TeacherHome:NextPage = () =>{
                         <Button color='var(--blue-500)'>Aceitar</Button>
                         <Button color='var(--red-500)'>Negar</Button>
                     </div>                    
-                </Card>
-                <Card>
+                </OrderCard>
+                <OrderCard>
                     <div className='topCard'>
                         <div className='pic'></div>
                         <div>
@@ -98,8 +98,8 @@ const TeacherHome:NextPage = () =>{
                         <Button color='var(--blue-500)'>Aceitar</Button>
                         <Button color='var(--red-500)'>Negar</Button>
                     </div>                    
-                </Card>
-                <Card>
+                </OrderCard>
+                <OrderCard>
                     <div className='topCard'>
                         <div className='pic'></div>
                         <div>
@@ -116,7 +116,7 @@ const TeacherHome:NextPage = () =>{
                         <Button color='var(--blue-500)'>Aceitar</Button>
                         <Button color='var(--red-500)'>Negar</Button>
                     </div>                    
-                </Card>
+                </OrderCard>
             </Content>
         </Container>
     )

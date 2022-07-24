@@ -1,8 +1,6 @@
 import { NextPage } from "next";
 import Header from "../../components/Header";
-import Content from "../../components/Content";
-import Button from "../../components/Button";
-import Title from "../../components/Title";
+import {Content, Title, Button} from "../../components/styledComponents";
 import { Container, TeacherCard, StarIcon} from "./styles";
 
 
