@@ -2,7 +2,7 @@ import type {NextPage} from 'next';
 import {useState} from 'react';
 import { database } from '../../../services/firebase';
 import { useUser } from '../../hooks/useUser';
-import Header from '../components/Header';
+import Header from '../../components/Header';
 import Title from "../components/Title";
 import {Container, Content, Card, PicContainer, Input, Button} from './styles';
 
