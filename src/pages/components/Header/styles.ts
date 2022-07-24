@@ -2,6 +2,7 @@ import styled from "styled-components";
 import {FaRegBell} from "react-icons/fa";
 import {FiUser} from "react-icons/fi";
 import {IoIosLogOut} from "react-icons/io";
+import {HiOutlineSearch} from "react-icons/hi"
 
 export const Container = styled.header`
     width: 100%;
@@ -40,11 +41,35 @@ export const LeftSide = styled.div`
         background-color: var(--blue-300);
         cursor: pointer;
     }
+
+    .searchContainer{
+        position: relative;
+    }
+
+    input{
+        width: 25rem;
+        height: 3.5rem;
+        margin: 0 1rem 0 -15rem;
+        padding: 1rem;
+        background-color: var(--gray-100);
+        font-size: 1.4rem;
+        border: none;
+        border-radius: 0.7rem;
+    }
+`;
+
+export const SearchIcon = styled(HiOutlineSearch)`
+    position: absolute;
+    top: 1rem;
+    right: 2.5rem;
+    color: #bbb;
+    font-size:1.6rem;
+    cursor: poiter;
 `;
 
 export const BellIcon = styled(FaRegBell)`
-    font-size: 2.5rem;
-    color: var(--blue-300);
+    font-size: 2.2rem;
+    color: var(--gray-100);
     margin-right: 2rem;
     cursor: pointer;
 `;

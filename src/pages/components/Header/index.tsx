@@ -4,14 +4,15 @@ import { useRouter } from 'next/router';
 import { useState } from 'react';
 import Logo from '../Logo';
 import {Container, NavBar, LeftSide, 
-          BellIcon, SettingsModal, UserIcon, ExitIcon}
+          BellIcon, SettingsModal, UserIcon, ExitIcon, SearchIcon}
  from './styles';
 
 const Header:NextPage = () =>{
 
   const {pathname} = useRouter();
   const [modalVisible, setModalVisible] = useState<boolean>(false);
- 
+  const [searchText, setSearchText] = useState('');
+
     return (
       <Container>
         <Logo/>
@@ -30,6 +31,16 @@ const Header:NextPage = () =>{
       </NavBar>  
         }
         <LeftSide>
+          <div className='searchContainer'>
+            <input 
+              placeholder='o que queres aprender ?'
+              value={searchText}
+              onChange = {({target})=>setSearchText(target.value)}
+            />
+            <Link href={`http://localhost:3000/student/search/${searchText}`}>
+              <SearchIcon/>
+            </Link>
+          </div>
           <BellIcon/>
           <div className='pic' onClick={()=>setModalVisible(!modalVisible)}>
             <SettingsModal className={modalVisible ? 'block' : 'none'}>
