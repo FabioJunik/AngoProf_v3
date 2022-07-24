@@ -1,6 +1,6 @@
 import { NextPage } from "next";
 import Header from "../../components/Header";
-import Title from "../components/Title";
+import Title from "../../components/Title";
 import { Button, Container, Content, StudentCard } from "./styles";
 
 

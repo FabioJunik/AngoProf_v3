@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
 import Header from "../../components/Header";
-import Title from "../components/Title";
+import Title from "../../components/Title";
 import { Container, Content, MatterCard, Button } from "./styles";
 
 const Matter:NextPage = () =>{

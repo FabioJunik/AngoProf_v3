@@ -1,21 +1,15 @@
 import styled from "styled-components";
-import ButtonDefault from "../components/Button"
-import ContentDefault from "../components/Content"
-
+import {FaStar} from "react-icons/fa"
 
 export const Container = styled.div`
 
 `;
 
-export const Content = styled(ContentDefault)`
-    
-`;
-
-export const Card = styled.div`
+export const TeacherCard = styled.div`
     width: 30%;
-    max-width: 35rem;
-    min-width: 30rem;
-    height: 25rem;
+    max-width: 37rem;
+    min-width: 33rem;
+    height: 23rem;
     padding: 3rem;
 
     display: flex;
@@ -57,14 +51,12 @@ export const Card = styled.div`
             background-color: var(--blue-300);
         }
     }
-
-    .midiumCard{
-        font-size: 1.4rem;
-        flex-wrap: wrap;
-        gap: 1rem;
-    }
-
 `;
 
-export const Button = styled(ButtonDefault)`
-`;
+
+export const StarIcon = styled(FaStar)`
+    margin-top: 1rem;
+    margin-right: 0.5rem;
+    font-size: 1.6rem;
+    color: var(--blue-300);
+`

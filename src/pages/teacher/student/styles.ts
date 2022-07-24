@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import ContentDefault from "../components/Content";
-import ButtonDefault from "../components/Button";
+import ContentDefault from "../../components/Content";
+import ButtonDefault from "../../components/Button";
 
 export const Container = styled.div``;
 
