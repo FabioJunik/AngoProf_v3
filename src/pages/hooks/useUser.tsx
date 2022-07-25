@@ -4,6 +4,23 @@ interface pageProps{
     children: ReactNode
 }
 
+interface MatterProps{
+    id: number;
+    name: string;
+    basicPrice?: { 
+        online: string,
+        presential: string
+    };
+    intermediaryPrice?: { 
+        online: string,
+        presential: string
+    };
+    advancedPrice?: { 
+        online: string,
+        presential: string
+    };
+}
+
 interface userProps {
     id: string;
     name: string;
@@ -13,6 +30,7 @@ interface userProps {
     gender?: string;
     phone1?: string;
     phone2?: string;
+    matter?: Array <MatterProps>;
     typeUser: string;
 }
 

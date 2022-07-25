@@ -1,16 +1,74 @@
 import type { NextPage } from "next";
-import { useState } from "react";
+import { FormEvent, useState } from "react";
+import { useUser } from "../../hooks/useUser";
+
 import Modal from 'react-modal';
 
 import Header from "../../components/Header";
 import {Title} from "../../components/styledComponents";
 import { Container, Content, MatterCard, AddMatterCard, Button,CloseIcon} from "./styles";
+import { database } from "../../../services/firebase";
 
 Modal.setAppElement('#modal-root');
 
+interface MatterProps{
+    id: number;
+    name: string;
+    basicPrice?: { 
+        online: string,
+        presential: string
+    };
+    intermediaryPrice?: { 
+        online: string,
+        presential: string
+    };
+    advancedPrice?: { 
+        online: string,
+        presential: string
+    };
+}
+
 const Matter:NextPage = () =>{
+    const {user} = useUser();
     const [isOpen, setIsOpen] = useState(false);
-    
+
+    const [name, setName] = useState<string>('');
+    const [onBasicPrice, setOnBasicPrice] = useState<string>('');
+    const [preBasicPrice, setPreBasicPrice] = useState<string>('');
+    const [onIntermediaryPrice, setOnIntermediaryPrice] = useState<string>('');
+    const [preIntermediaryPrice, setPreIntermediaryPrice] = useState<string>('');
+    const [onAdvancedPrice, setOnAdvancedPrice] = useState<string>('');
+    const [preAdvancedPrice, setPreAdvancedPrice] = useState<string>('');
+
+    const getMatterId =()=>user?.matter?.length ? user.matter.length + 1 : 1;
+
+    function createNewMatter(e: FormEvent){
+        e.preventDefault();
+        const ref = database.ref('users/');
+
+        const matterData:MatterProps ={
+            id: getMatterId(),
+            name,
+            basicPrice: { 
+                online: onBasicPrice,
+                presential: preBasicPrice
+            },
+            intermediaryPrice: { 
+                online: onIntermediaryPrice,
+                presential: preIntermediaryPrice
+            },
+            advancedPrice: { 
+                online: onAdvancedPrice,
+                presential: preAdvancedPrice
+            }   
+        }
+
+        user.matter = user.matter ? [... user.matter,matterData] : [matterData];
+        localStorage.setItem('user', JSON.stringify(user));
+        
+        ref.child(user.id).update(user);
+    }
+
     return(
         <Container>
             <Header/>
@@ -84,17 +142,56 @@ const Matter:NextPage = () =>{
                 <CloseIcon onClick={()=>setIsOpen(false)}/>
                 <h2>Adicionar uma nova materia</h2>
                 <form>
-                    <input type="text" placeholder="Nome"/>
+                    <input 
+                        type="text"
+                        placeholder="Nome"
+                        value={name}
+                        onChange={(e)=>setName(e.target.value)}
+                    />
                     <p>Nivel Basico</p>
-                    <input type="number" placeholder="Preço online"/>
-                    <input type="number" placeholder="Preço presencial"/>
+                    <input 
+                        type="number"
+                        placeholder="Preço online"
+                        value={onBasicPrice}
+                        onChange={(e)=>setOnBasicPrice(e.target.value)}
+                    />
+                    <input 
+                        type="number"
+                        placeholder="Preço presencial"
+                        value={preBasicPrice}
+                        onChange={(e)=>setPreBasicPrice(e.target.value)}
+                    />
                     <p>Nivel Intermedirio</p>
-                    <input type="number" placeholder="Preço online"/>
-                    <input type="number" placeholder="Preço presencial"/>
+                    <input 
+                        type="number"
+                        placeholder="Preço online"
+                        value={onIntermediaryPrice}
+                        onChange={(e)=>setOnIntermediaryPrice(e.target.value)}
+                    />
+                    <input 
+                        type="number"
+                        placeholder="Preço presencial"
+                        value={preIntermediaryPrice}
+                        onChange={(e)=>setPreIntermediaryPrice(e.target.value)}
+                    />
                     <p>Nivel Avançado</p>
-                    <input type="number" placeholder="Preço online"/>
-                    <input type="number" placeholder="Preço presencial"/>
-                    <Button type="submit" color="var(--blue-500)">Salvar</Button>
+                    <input 
+                        type="number"
+                        placeholder="Preço online"
+                        value={onAdvancedPrice}
+                        onChange={(e)=>setOnAdvancedPrice(e.target.value)}
+                    />
+                    <input 
+                        type="number"
+                        placeholder="Preço presencial"
+                        value={preAdvancedPrice}
+                        onChange={(e)=>setPreAdvancedPrice(e.target.value)}
+                    />
+                    <Button 
+                        type="submit"
+                        color="var(--blue-500)"
+                        onClick={createNewMatter}
+                    >Salvar</Button>
                 </form>
             </Modal>
         </Container>
