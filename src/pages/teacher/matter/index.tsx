@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
 import Header from "../../components/Header";
 import {Title} from "../../components/styledComponents";
-import { Container, Content, MatterCard, Button } from "./styles";
+import { Container, Content, MatterCard, AddMatterCard, Button, MatterModal } from "./styles";
 
 const Matter:NextPage = () =>{
     return(
@@ -9,6 +9,9 @@ const Matter:NextPage = () =>{
             <Header/>
             <Content>
                 <Title>Materias Lecionadas</Title>
+                <AddMatterCard>
+                    <span>+</span>
+                </AddMatterCard>
                 <MatterCard>
                     <div className="topCard">
                         <h2>Matematica</h2>
@@ -66,6 +69,22 @@ const Matter:NextPage = () =>{
                     </div>  
                 </MatterCard>                
             </Content>
+            <MatterModal>
+                <h2>Adicionar uma nova materia</h2>
+                <form>
+                    <input type="text" placeholder="Nome"/>
+                    <p>Nivel Basico</p>
+                    <input type="number" placeholder="Preço online"/>
+                    <input type="number" placeholder="Preço presencial"/>
+                    <p>Nivel Intermedirio</p>
+                    <input type="number" placeholder="Preço online"/>
+                    <input type="number" placeholder="Preço presencial"/>
+                    <p>Nivel Avançado</p>
+                    <input type="number" placeholder="Preço online"/>
+                    <input type="number" placeholder="Preço presencial"/>
+                    <Button type="submit" color="var(--blue-500)">Salvar</Button>
+                </form>
+            </MatterModal>
         </Container>
     )
 }
