@@ -9,6 +9,22 @@ import { Button, Container, FacebookIcon, GoogleIcon,
         Input, LoginForm, SocialMidiaCard } 
         from "./styles";
 
+interface MatterProps{
+    id: number;
+    name: string;
+    basicPrice?: { 
+        online: string,
+        presential: string
+    };
+    intermediaryPrice?: { 
+        online: string,
+        presential: string
+    };
+    advancedPrice?: { 
+        online: string,
+        presential: string
+    };
+}
 
 interface userProps {
     id: string;
@@ -17,6 +33,7 @@ interface userProps {
     email: string;
     password: string;
     typeUser: string;
+    matter?: MatterProps[];
 }
 
 const Login:NextPage = () => {
@@ -38,7 +55,8 @@ const Login:NextPage = () => {
                     'lastname': value.lastname,
                     'email': value.email,
                     'password': value.password,
-                    'typeUser': value.typeUser
+                    'typeUser': value.typeUser,
+                    'matter' : value?.matter,
                 }
             });
             setUser(userResult);

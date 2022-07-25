@@ -69,6 +69,8 @@ const Matter:NextPage = () =>{
         ref.child(user.id).update(user);
     }
 
+    console.log(user)
+
     return(
         <Container>
             <Header/>
@@ -77,62 +79,35 @@ const Matter:NextPage = () =>{
                 <AddMatterCard onClick={()=>setIsOpen(!isOpen)}>
                     <span>+</span>
                 </AddMatterCard>
-                <MatterCard>
-                    <div className="topCard">
-                        <h2>Matematica</h2>
-                        <span>Alunos : 05</span>
-                    </div>
-                    <div className="midiumCard">
-                        <p>Presincial 2000 kz | Online 1500kz</p>
-                        <p>Basico | Intermediario | Avançado</p>
-                    </div>
-                    <div className='bottomCard'>
-                        <Button color='var(--blue-500)'>Editar</Button>
-                        <Button color='var(--red-500)'>Eliminar</Button>
-                    </div>  
-                </MatterCard>
-                <MatterCard>
-                    <div className="topCard">
-                        <h2>Matematica</h2>
-                        <span>Alunos : 05</span>
-                    </div>
-                    <div className="midiumCard">
-                        <p>Presincial 2000 kz | Online 1500kz</p>
-                        <p>Basico | Intermediario | Avançado</p>
-                    </div>
-                    <div className='bottomCard'>
-                        <Button color='var(--blue-500)'>Editar</Button>
-                        <Button color='var(--red-500)'>Eliminar</Button>
-                    </div>  
-                </MatterCard>
-                <MatterCard>
-                    <div className="topCard">
-                        <h2>Matematica</h2>
-                        <span>Alunos : 05</span>
-                    </div>
-                    <div className="midiumCard">
-                        <p>Presincial 2000 kz | Online 1500kz</p>
-                        <p>Basico | Intermediario | Avançado</p>
-                    </div>
-                    <div className='bottomCard'>
-                        <Button color='var(--blue-500)'>Editar</Button>
-                        <Button color='var(--red-500)'>Eliminar</Button>
-                    </div>  
-                </MatterCard>
-                <MatterCard>
-                    <div className="topCard">
-                        <h2>Matematica</h2>
-                        <span>Alunos : 05</span>
-                    </div>
-                    <div className="midiumCard">
-                        <p>Presincial 2000 kz | Online 1500kz</p>
-                        <p>Basico | Intermediario | Avançado</p>
-                    </div>
-                    <div className='bottomCard'>
-                        <Button color='var(--blue-500)'>Editar</Button>
-                        <Button color='var(--red-500)'>Eliminar</Button>
-                    </div>  
-                </MatterCard>                
+                {
+                    user.matter &&
+                    user.matter.map(matter =>(
+                        <MatterCard key={matter.id}>
+                            <div className="topCard">
+                                <h2>{matter.name}</h2>
+                                <span>Alunos : 00</span>
+                            </div>
+                            <div className="midiumCard">
+                                <p>
+                                    Presincial : 
+                                    {matter?.basicPrice?.presential || '---'} | 
+                                    {matter?.intermediaryPrice?.presential || '---'} |  
+                                    {matter?.advancedPrice?.presential || '---'}   
+                                </p>
+                                <p>
+                                    Online : 
+                                    {matter?.basicPrice?.online || '---'} | 
+                                    {matter?.intermediaryPrice?.online || '---'} |  
+                                    {matter?.advancedPrice?.online || '---'}
+                                </p>
+                            </div>
+                            <div className='bottomCard'>
+                                <Button color='var(--blue-500)'>Editar</Button>
+                                <Button color='var(--red-500)'>Eliminar</Button>
+                            </div>  
+                        </MatterCard>
+                    ))                    
+                }
             </Content>
             <Modal 
                 isOpen={isOpen}
