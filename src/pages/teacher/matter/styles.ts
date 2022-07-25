@@ -1,8 +1,8 @@
 import styled from "styled-components";
-import * as sc from "../../components/styledComponents"
+import * as sc from "../../components/styledComponents";
+import {IoMdClose} from "react-icons/io";
 
 export const Container = styled.div`
-
 `;
 
 export const Content = styled(sc.Content)`
@@ -54,55 +54,26 @@ export const  AddMatterCard = styled(sc.Card)`
     }
 `;
 
-export const MatterModal = styled.div`
-    width: 50rem;
-    padding: 3rem;
-    display: none;
-
-    position: fixed;
-    top:8rem;
-    left: calc(50% - 25rem);
-
-    background-color: #fff;
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
-    border-radius:1rem;
-
-    h2{
-        margin-bottom: 2rem;
-        font-size:2rem;
-        font-weight:500;
-        color: var(--blue-500);
-    }
-    form{
-        display:flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
-
-        p{
-            width:100%;
-            font-size:1.4rem;
-            margin-top: 2rem;
-            margin-bottom: 0.5rem;
-        }
-
-        input{
-            width:100%;
-            padding:1rem;
-
-            background-color: var(--gray-100);
-            border:none;
-            border-radius:0.5rem;
-            border:1px solid #eee;
-
-            font-size:1.4rem;
-        }   
-
-        input[type="number"] {width:45%;}
-        button{margin: 4rem auto 0 auto;}
-    }
-    
-`;
 
 export const Button = styled(sc.Button)`
 
+`;
+
+export const CloseIcon = styled(IoMdClose)`
+    position: absolute;
+    top: 1rem;
+    right: 1.5rem;
+
+    color: #aaa; 
+    font-size:3rem;
+    cursor: pointer;
+    transform: scale(0.9);
+
+    transition: .2s;
+
+
+    &:hover{
+        filter: brightness(0.8);
+        transform: scale(1);
+    }
 `;

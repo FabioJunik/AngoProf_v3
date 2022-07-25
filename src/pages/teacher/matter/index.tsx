@@ -1,15 +1,22 @@
 import type { NextPage } from "next";
+import { useState } from "react";
+import Modal from 'react-modal';
+
 import Header from "../../components/Header";
 import {Title} from "../../components/styledComponents";
-import { Container, Content, MatterCard, AddMatterCard, Button, MatterModal } from "./styles";
+import { Container, Content, MatterCard, AddMatterCard, Button,CloseIcon} from "./styles";
+
+Modal.setAppElement('#modal-root');
 
 const Matter:NextPage = () =>{
+    const [isOpen, setIsOpen] = useState(false);
+    
     return(
         <Container>
             <Header/>
             <Content>
                 <Title>Materias Lecionadas</Title>
-                <AddMatterCard>
+                <AddMatterCard onClick={()=>setIsOpen(!isOpen)}>
                     <span>+</span>
                 </AddMatterCard>
                 <MatterCard>
@@ -69,7 +76,12 @@ const Matter:NextPage = () =>{
                     </div>  
                 </MatterCard>                
             </Content>
-            <MatterModal>
+            <Modal 
+                isOpen={isOpen}
+                overlayClassName='react-modal-overlay'
+                className='MatterModal'
+            >
+                <CloseIcon onClick={()=>setIsOpen(false)}/>
                 <h2>Adicionar uma nova materia</h2>
                 <form>
                     <input type="text" placeholder="Nome"/>
@@ -84,7 +96,7 @@ const Matter:NextPage = () =>{
                     <input type="number" placeholder="Preço presencial"/>
                     <Button type="submit" color="var(--blue-500)">Salvar</Button>
                 </form>
-            </MatterModal>
+            </Modal>
         </Container>
     )
 }
