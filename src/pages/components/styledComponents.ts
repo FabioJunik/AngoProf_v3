@@ -62,10 +62,19 @@ export const Card = styled.div`
         align-items: center;
         gap: 3rem;
 
+        
+        h2, h3{
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
         h2{
             font-size: 1.8rem;
             color: var(--blue-500);
-
+            -webkit-line-clamp: 1;
         }
 
         h3{
@@ -75,8 +84,8 @@ export const Card = styled.div`
         }
 
         .pic{
-            width: 7.5rem;
-            height: 7.5rem;
+            min-width: 7.5rem;
+            min-height: 7.5rem;
 
             border-radius: 50%;
             background-color: var(--blue-300);
