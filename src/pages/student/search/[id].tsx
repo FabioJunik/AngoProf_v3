@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 
 import { database } from "../../../services/firebase";
+import { useUser } from "../../hooks/useUser";
 
 import { Container, TeacherCard, StarIcon} from "./styles";
 import Header from "../../components/Header";
@@ -30,16 +31,12 @@ interface UserProps {
     id: string;
     name: string;
     lastname: string;
-    gender: string;
-    email: string;
-    password: string;
-    typeUser?: string;
-    phone1: string;
-    phone2: string;
     matter?: MatterProps[];
+    typeUser: string;
 }
 
 const Search:NextPage = () => {
+    const {user} = useUser();
     const {query} = useRouter();
     const [teacher, setTeacher] = useState<UserProps[]>([]);
     const [teacherFind, setTeacherFind] = useState<UserProps[]>([]);
@@ -53,12 +50,7 @@ const Search:NextPage = () => {
                     'id': key,
                     'name': value.name,
                     'lastname': value.lastname,
-                    'gender': value.gender,
-                    'email': value.email,
-                    'password': value.password,
                     'typeUser': value.typeUser,
-                    'phone1': value.phone1,
-                    'phone2': value.phone2,
                     'matter': value?.matter,
                 }
             });
@@ -66,7 +58,7 @@ const Search:NextPage = () => {
         })
     },[]);
 
-    useEffect(()=>{searchTeacher()},[query.id])
+    useEffect(()=>{searchTeacher()},[query.id]);
 
     function searchTeacher(){
         setTeacherFind([])
@@ -78,6 +70,20 @@ const Search:NextPage = () => {
         }))
     }
 
+    function sendClassOrder(teacherId:string,teacherName:string, matterName: string){
+        const ref = database.ref('users/');
+
+        const matterData ={
+            teacherId,
+            teacherName,
+            matterName,
+        }
+
+        user.orderSent = user.orderSent ? [... user.orderSent,matterData] : [matterData];
+        localStorage.setItem('user', JSON.stringify(user));
+        
+        ref.child(user.id).update(user);
+    }
 
     return (
         
@@ -88,23 +94,26 @@ const Search:NextPage = () => {
                 {teacherFind &&
                     teacherFind.map(teacher=>(
                         <TeacherCard key={teacher.id}>
-                        <div className='topCard'>
-                            <div className='pic'></div>
-                            <div>
-                                <h2>{teacher.name} {teacher.lastname}</h2>
-                                <h3>{teacher.matter?.map(matter=>matter.name +' | ')}</h3>
+                            <div className='topCard'>
+                                <div className='pic'></div>
                                 <div>
-                                    <StarIcon/>
-                                    <StarIcon/><StarIcon/>
-                                    <StarIcon/><StarIcon/>
+                                    <h2>{teacher.name} {teacher.lastname}</h2>
+                                    <h3>{teacher.matter?.map(matter=>matter.name +' | ')}</h3>
+                                    <div>
+                                        <StarIcon/>
+                                        <StarIcon/><StarIcon/>
+                                        <StarIcon/><StarIcon/>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div className='bottomCard'>
-                            <Button color='var(--blue-500)'>Adicionar</Button>
-                            <Button color='var(--blue-500)'>Perfil</Button>
-                        </div>                    
-                    </TeacherCard>
+                            <div className='bottomCard'>
+                                <Button 
+                                    color='var(--blue-500)'
+                                    onClick={()=>sendClassOrder(teacher.id,teacher.name,query.id+'')}
+                                >Adicionar</Button>
+                                <Button color='var(--blue-500)'>Perfil</Button>
+                            </div>                    
+                        </TeacherCard>
                     ))
                 }
             </Content>
