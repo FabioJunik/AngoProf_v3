@@ -8,6 +8,7 @@ import { useUser } from "../../hooks/useUser";
 import { Container, TeacherCard, StarIcon} from "./styles";
 import Header from "../../components/Header";
 import { Content, Title, Button } from "../../components/styledComponents";
+import Teacher from "../teacher";
 
 
 interface MatterProps{
@@ -32,6 +33,26 @@ interface UserProps {
     name: string;
     lastname: string;
     matter?: MatterProps[];
+    typeUser: string;
+}
+
+interface StudentMatterProps{
+    studentId: string;
+    studentName: string;
+    matterName: string;
+}
+
+interface TeacherProps  {
+    id: string;
+    name: string;
+    lastname: string;
+    email: string;
+    password: string;
+    gender?: string;
+    phone1?: string;
+    phone2?: string;
+    matter?: Array <MatterProps>;
+    orderReceived?: StudentMatterProps[];
     typeUser: string;
 }
 
@@ -79,10 +100,46 @@ const Search:NextPage = () => {
             matterName,
         }
 
+        const orderData = {
+            'studentId': user.id,
+            'studentName': user.name,
+            'matterName': matterName
+        }
+
         user.orderSent = user.orderSent ? [... user.orderSent,matterData] : [matterData];
         localStorage.setItem('user', JSON.stringify(user));
         
         ref.child(user.id).update(user);
+
+        const userRef = database.ref('users');
+
+        let userResult = {} as TeacherProps;
+        userRef.on('value', result =>{
+            Object.entries<TeacherProps>(result.val()??{}).forEach(([key,value])=>{
+                if(key == teacherId){
+                    userResult = {
+                        'id': key,
+                        'name': value.name,
+                        'lastname': value.lastname,
+                        'gender': value.gender,
+                        'phone1' : value.phone1,
+                        'phone2' : value.phone2,
+                        'email': value.email,
+                        'password': value.password,
+                        'typeUser': value.typeUser,
+                        'matter' : value?.matter,
+                        'orderReceived': value?.orderReceived
+                    }
+                    return
+                }
+            });
+        })
+
+        userResult.orderReceived = userResult.orderReceived ? 
+        [...userResult.orderReceived, orderData] : [orderData];
+                
+        ref.child(userResult.id).update(userResult);            
+        console.log(userResult)
     }
 
     return (
