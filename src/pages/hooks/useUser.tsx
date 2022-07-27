@@ -21,6 +21,18 @@ interface MatterProps{
     };
 }
 
+interface TeacherMatterProps{
+    teacherId: string;
+    teacherName: string;
+    matterName: string;
+}
+
+interface StudentMatterProps{
+    studentId: string;
+    studentName: string;
+    matterName: string;
+}
+
 interface userProps {
     id: string;
     name: string;
@@ -31,6 +43,9 @@ interface userProps {
     phone1?: string;
     phone2?: string;
     matter?: Array <MatterProps>;
+    teacher?: TeacherMatterProps[];
+    orderReceived?: StudentMatterProps[];
+    orderSent?: TeacherMatterProps[];
     typeUser: string;
 }
 
@@ -49,7 +64,7 @@ export function UserProvider({children}:pageProps){
     if (typeof window !== 'undefined') {
         if(localStorage.getItem('user'))
           userLocal = JSON.parse(localStorage.getItem('user') || '');
-          console.log(localStorage.getItem('user'))
+          console.log(userLocal)
     }
 
     const [user, setUser]= useState<userProps>(userLocal as userProps);

@@ -26,14 +26,32 @@ interface MatterProps{
     };
 }
 
+interface TeacherMatterProps{
+    teacherId: string;
+    teacherName: string;
+    matterName: string;
+}
+
+interface StudentMatterProps{
+    studentId: string;
+    studentName: string;
+    matterName: string;
+}
+
 interface userProps {
     id: string;
     name: string;
     lastname: string;
     email: string;
     password: string;
+    gender?: string;
+    phone1?: string;
+    phone2?: string;
+    matter?: Array <MatterProps>;
+    teacher?: TeacherMatterProps[];
+    orderReceived?: StudentMatterProps[];
+    orderSent?: TeacherMatterProps[];
     typeUser: string;
-    matter?: MatterProps[];
 }
 
 const Login:NextPage = () => {
@@ -53,10 +71,16 @@ const Login:NextPage = () => {
                     'id': key,
                     'name': value.name,
                     'lastname': value.lastname,
+                    'gender': value.gender,
+                    'phone1' : value.phone1,
+                    'phone2' : value.phone2,
                     'email': value.email,
                     'password': value.password,
                     'typeUser': value.typeUser,
                     'matter' : value?.matter,
+                    'teacher' : value?.teacher,
+                    'orderSent' : value?.orderSent,
+                    'orderReceived': value?.orderReceived,
                 }
             });
             setUser(userResult);
@@ -68,11 +92,37 @@ const Login:NextPage = () => {
 
         user.map((user)=>{
             if(user.email === email && user.password === password) {
+                const daseData = {
+                    'id': user.id,
+                    'name': user.name,
+                    'lastname': user.lastname,
+                    'gender': user.gender,
+                    'phone1' : user.phone1,
+                    'phone2' : user.phone2,
+                    'email': user.email,
+                    'password': user.password,
+                    'typeUser': user.typeUser,
+                }
+                const studentData = {
+                    ...daseData,
+                    'teacher': user.teacher,
+                    'orderSent' : user.orderSent,
+                }
+                const teacherData = {
+                    ...daseData,
+                    'matter' : user.matter,
+                    'orderReceived': user.orderReceived,
+                }
+               
                 if(user.typeUser === 'teacher'){
+                    provideUser(teacherData);
+                    localStorage.setItem('user', JSON.stringify(teacherData));
                     Router.push('/teacher');
-                    provideUser(user);
-                    localStorage.setItem('user', JSON.stringify(user));
-                }   
+                }else{
+                    provideUser(studentData);
+                    localStorage.setItem('user', JSON.stringify(studentData));
+                    Router.push('/student');
+                }
             }
         })
     }
