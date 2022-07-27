@@ -102,7 +102,7 @@ const Search:NextPage = () => {
 
         const orderData = {
             'studentId': user.id,
-            'studentName': user.name,
+            'studentName': user.name +' '+user.lastname,
             'matterName': matterName
         }
 
