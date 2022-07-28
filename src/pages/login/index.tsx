@@ -96,22 +96,22 @@ const Login:NextPage = () => {
                     'id': user.id,
                     'name': user.name,
                     'lastname': user.lastname,
-                    'gender': user.gender,
-                    'phone1' : user.phone1,
-                    'phone2' : user.phone2,
+                    'gender': user.gender || '',
+                    'phone1' : user.phone1 || '',
+                    'phone2' : user.phone2 || '',
                     'email': user.email,
                     'password': user.password,
                     'typeUser': user.typeUser,
                 }
                 const studentData = {
                     ...daseData,
-                    'teacher': user.teacher,
-                    'orderSent' : user.orderSent,
+                    'teacher': user.teacher || [],
+                    'orderSent' : user.orderSent || [],
                 }
                 const teacherData = {
                     ...daseData,
-                    'matter' : user.matter,
-                    'orderReceived': user.orderReceived,
+                    'matter' : user.matter || [],
+                    'orderReceived': user.orderReceived || [],
                 }
                
                 if(user.typeUser === 'teacher'){

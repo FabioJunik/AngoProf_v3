@@ -39,7 +39,7 @@ interface UserProps {
 interface StudentMatterProps{
     studentId: string;
     studentName: string;
-    matterName: string;
+    matterName: string; 
 }
 
 interface TeacherProps  {
