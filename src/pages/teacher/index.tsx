@@ -47,8 +47,6 @@ const TeacherHome:NextPage = () =>{
 
         user.orderReceived = user?.orderReceived?.filter(order => order.studentId !== studentId || order.matterName !== matterName);
         
-        //
-        
         const userRef = database.ref('users');
 
         let userResult = {} as StudentProps;
@@ -66,26 +64,37 @@ const TeacherHome:NextPage = () =>{
                         'password': value.password,
                         'typeUser': value.typeUser,
                         'teacher' : value?.teacher || [],
-                        'orderSent': value.orderSent
+                        'orderSent': value.orderSent || []
                     }
                 }
             });
             
-            // userResult.orderSent =  Object.keys(userResult.orderSent).map(key=> userResult.orderSent[Number(key)] );
-            // userResult.orderSent = userResult.orderSent.filter(order=> order.teacherId !== user.id || order.matterName !== matterName);
-            // ref.child(userResult.id).update(userResult);            
-
-            if(typeAnswer === 'accept')
-                linkUsers(userResult, matterName);                    
+            userResult.orderSent = userResult.orderSent.filter(order=> order.teacherId !== user.id || order.matterName !== matterName);
+                               
         })
+
+        if(typeAnswer === 'accept')
+            linkUsers(userResult, matterName);
+        else{
+            localStorage.setItem('user', JSON.stringify(user));
+            ref.child(userResult.id).update(userResult);
+            ref.child(user.id).update(user);
+        }
                 
     }
 
-    function linkUsers (student:StudentProps, matterName:string){
-        
-        const studentData ={
+    function linkUsers (student:StudentProps, matterName:string){        
+        const ref = database.ref('users/');
+
+        const studentData ={   
             studentId: student.id,
             studentName: student.name +' '+student.lastname,
+            matterName: [matterName]
+        }
+
+        const teacherData = {
+            teacherId: user.id,
+            teacherName: user.name +' '+ user.lastname,
             matterName: [matterName]
         }
 
@@ -98,13 +107,26 @@ const TeacherHome:NextPage = () =>{
                     element.matterName = [...element.matterName, matterName];
                 }
             })
+
+            console.log(student.teacher)
+
+            student?.teacher?.map(element=>{
+                console.log(element)
+                if(element.teacherId === user.id){
+                    element.matterName = [...element.matterName, matterName];
+                }
+            })
         }
         else{
-            user.student = user.student ? [...user.student, studentData]: [studentData];   
+            user.student = user.student ? [...user.student, studentData]: [studentData];  
+            student.teacher = student.teacher ? [...student.teacher, teacherData]: [teacherData]; 
         }
 
-        console.log(user);
-        console.log(user.student);
+        
+        localStorage.setItem('user', JSON.stringify(user));
+        ref.child(student.id).update(student);
+        ref.child(user.id).update(user);
+
     }
 
     return (
@@ -136,7 +158,7 @@ const TeacherHome:NextPage = () =>{
                                 </Button>
                                 <Button 
                                     color='var(--red-500)'
-                                    // onClick={}
+                                    onClick={()=>answerOrder(order.studentId,order.matterName, "negate")}
                                 >
                                     Negar
                                 </Button>
