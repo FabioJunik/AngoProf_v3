@@ -29,7 +29,7 @@ export const Content = styled.div`
     }
 `;
 
-export const Card = styled.div`
+export const Card = styled.form`
     width: 35rem;
     padding: 2rem;
     margin-bottom: 2rem;
@@ -60,21 +60,28 @@ export const Card = styled.div`
         margin-bottom: 1rem;
         font-size: 1.4rem;
     }
+
+    input[type="file"] {
+        display: none;
+    }
 `;
 
-export const PicContainer =styled.div`
+export const PicContainer =styled.label`
     width: 20rem;
     height: 20rem;
     margin: 0 auto;
     margin-bottom: 1rem;
-    border: none;
+    
+    border: 2px solid var(--blue-500);
 
     background-size: cover;
+    background-image: url(${props=>props.color});
+    border-radius: 50%;
     cursor: pointer;
 
-    &.perfilPic{background-image: url('https://cdn-icons.flaticon.com/png/512/1144/premium/1144709.png?token=exp=1658436634~hmac=223b234073e66ead2e678c3ef58d5ae5');}
-    &.identityPic{background-image: url('https://cdn-icons.flaticon.com/png/512/3160/premium/3160461.png?token=exp=1658435201~hmac=1c4bc9435b89a5351ca26f0d4beff336');}
-    &.diplomaPic{background-image: url('https://cdn-icons-png.flaticon.com/512/2490/2490354.png');}
+    /* &.identityPic{background-image: url('https://cdn-icons.flaticon.com/png/512/3160/premium/3160461.png?token=exp=1658435201~hmac=1c4bc9435b89a5351ca26f0d4beff336');} */
+    /* &.diplomaPic{background-image: url('https://cdn-icons-png.flaticon.com/512/2490/2490354.png');} */
+
     
 
 `;

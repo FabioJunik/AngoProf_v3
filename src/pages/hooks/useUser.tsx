@@ -59,6 +59,7 @@ interface userProps {
     student?: StudentOfTeacherProps[];
     orderReceived?: StudentMatterProps[];
     orderSent?: TeacherMatterProps[];
+    imgURL?: string;
     typeUser: string;
 }
 

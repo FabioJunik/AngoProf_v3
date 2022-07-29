@@ -64,6 +64,7 @@ interface userProps {
     student?: StudentOfTeacherProps[];
     orderReceived?: StudentMatterProps[];
     orderSent?: TeacherMatterProps[];
+    imgURL?: string;
     typeUser: string;
 }
 
@@ -89,6 +90,7 @@ const Login:NextPage = () => {
                     'phone2' : value.phone2,
                     'email': value.email,
                     'password': value.password,
+                    'imgURL' : value.imgURL,
                     'typeUser': value.typeUser,
                     'matter' : value?.matter,
                     'teacher' : value?.teacher,
@@ -114,6 +116,7 @@ const Login:NextPage = () => {
                     'phone2' : user.phone2 || '',
                     'email': user.email,
                     'password': user.password,
+                    'imgURL': user.imgURL || '',
                     'typeUser': user.typeUser,
                 }
                 const studentData = {

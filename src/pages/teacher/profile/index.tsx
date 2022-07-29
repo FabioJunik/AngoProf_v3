@@ -1,21 +1,20 @@
 import type {NextPage} from 'next';
-import {useState} from 'react';
-import { database } from '../../../services/firebase';
+import {useState, FormEvent} from 'react';
+import { database, storage} from '../../../services/firebase';
 import { useUser } from '../../hooks/useUser';
 import Header from '../../components/Header';
 import {Title} from "../../components/styledComponents";
 import {Container, Content, Card, PicContainer, Input, Button} from './styles';
 
 interface UserProps {
-    id: string;
     name: string;
     lastname: string;
     gender: string;
     email: string;
     password: string;
-    typeUser?: string;
     phone1: string;
     phone2: string;
+    imgURL?: string;
 }
 
 const Profile:NextPage = ()=>{
@@ -28,12 +27,44 @@ const Profile:NextPage = ()=>{
     const [gender, setGender] = useState<string>(user.gender || '');
     const [phone1, setPhone1] = useState<string>(user.phone1 || '');
     const [phone2, setPhone2] = useState<string>(user.phone2 || '');
+    const [imgURL, setImgURL] = useState<string>(user.imgURL || '');
 
-    function updateUserData(){
+    const [imgProcess, setImgProcess] = useState<number>(0);
+
+    function updateImage(event:FormEvent){
+        event.preventDefault();
+
+        const file = event.target[0]?.files[0];
+        console.log(file)
+        if(!file) return 
+
+        const uploudTask = storage.ref(`images/${file.name}`).put(file);
+
+        uploudTask.on(
+            'state_changed', 
+            snapshot =>{
+                const progress = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+                setImgProcess(progress);
+            },
+            error =>{
+                alert(error)
+            },
+            () =>{
+                storage.ref("images").child(file.name).getDownloadURL().then(url =>{
+                    console.log(url)
+                    setImgURL(url);
+                    updateUserData(event);
+                })
+             }        
+        )
+    }
+
+    function updateUserData(event:FormEvent){
+        event.preventDefault();
+
         const ref = database.ref('users/');
 
         const userData:UserProps ={
-            id: user.id,
             name,
             lastname,
             gender,
@@ -41,7 +72,7 @@ const Profile:NextPage = ()=>{
             password,
             phone1,
             phone2,
-
+            imgURL
         }
 
         ref.child(user.id).update(userData);
@@ -54,10 +85,11 @@ const Profile:NextPage = ()=>{
             <Content>
                 <Title>Meu perfil</Title>
                 <div className='column1'>
-                    <Card>
+                    <Card onSubmit={updateImage}>
                         <h2>Foto de perfil</h2>
-                        <PicContainer className='perfilPic'/>
-                        <p>Carregar foto</p>
+                        {imgURL && <PicContainer color={imgURL} htmlFor="image"/>}
+                        <input type="file" id='image'/>
+                        <Button type='submit'>{imgProcess == 0 ? 'Processar imagem': 'Guardar'}</Button>
                     </Card>
                     <Card>
                         <h2>Contacto</h2>
