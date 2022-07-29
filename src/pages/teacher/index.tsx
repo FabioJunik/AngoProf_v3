@@ -6,28 +6,25 @@ import Header from '../components/Header';
 import {Title} from "../components/styledComponents";
 import {Container, Content, OrderCard, Button} from './homeStyles';
 
-interface MatterProps{
-    id: number;
-    name: string;
-    basicPrice?: { 
-        online: string,
-        presential: string
-    };
-    intermediaryPrice?: { 
-        online: string,
-        presential: string
-    };
-    advancedPrice?: { 
-        online: string,
-        presential: string
-    };
-}
 
 interface TeacherMatterProps{
     teacherId: string;
     teacherName: string;
     matterName: string;
 }
+
+interface TeacherOfStudentProps{
+    teacherId: string;
+    teacherName: string;
+    matterName: string[];
+}
+
+interface StudentOfTeacherProps{
+    studentId: string;
+    studentName: string;
+    matterName: string[];
+}
+
 interface StudentProps  {
     id: string;
     name: string;
@@ -37,7 +34,7 @@ interface StudentProps  {
     gender?: string;
     phone1?: string;
     phone2?: string;
-    teacher?: Array <MatterProps>;
+    teacher?: TeacherOfStudentProps[];
     orderSent: Array <TeacherMatterProps>;
     typeUser: string;
 }
@@ -50,9 +47,7 @@ const TeacherHome:NextPage = () =>{
 
         user.orderReceived = user?.orderReceived?.filter(order => order.studentId !== studentId || order.matterName !== matterName);
         
-        localStorage.setItem('user', JSON.stringify(user));
-        ref.child(user.id).update(user);
-        console.log(user);
+        //
         
         const userRef = database.ref('users');
 
@@ -77,12 +72,39 @@ const TeacherHome:NextPage = () =>{
             });
             
             // userResult.orderSent =  Object.keys(userResult.orderSent).map(key=> userResult.orderSent[Number(key)] );
-            userResult.orderSent = userResult.orderSent.filter(order=> order.teacherId !== user.id || order.matterName !== matterName);
-            ref.child(userResult.id).update(userResult);            
-            console.log(userResult.orderSent) 
-                              
+            // userResult.orderSent = userResult.orderSent.filter(order=> order.teacherId !== user.id || order.matterName !== matterName);
+            // ref.child(userResult.id).update(userResult);            
+
+            if(typeAnswer === 'accept')
+                linkUsers(userResult, matterName);                    
         })
                 
+    }
+
+    function linkUsers (student:StudentProps, matterName:string){
+        
+        const studentData ={
+            studentId: student.id,
+            studentName: student.name +' '+student.lastname,
+            matterName: [matterName]
+        }
+
+        const studentFound = user?.student?.find(element => element.studentId === student.id);
+
+        if(studentFound){
+
+            user?.student?.map(element=>{
+                if(element.studentId === student.id){
+                    element.matterName = [...element.matterName, matterName];
+                }
+            })
+        }
+        else{
+            user.student = user.student ? [...user.student, studentData]: [studentData];   
+        }
+
+        console.log(user);
+        console.log(user.student);
     }
 
     return (
