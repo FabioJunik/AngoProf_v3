@@ -39,7 +39,7 @@ interface UserProps {
 interface StudentMatterProps{
     studentId: string;
     studentName: string;
-    matterName: string; 
+    matterName: string;
 }
 
 interface TeacherProps  {
@@ -121,13 +121,13 @@ const Search:NextPage = () => {
                         'id': key,
                         'name': value.name,
                         'lastname': value.lastname,
-                        'gender': value.gender,
-                        'phone1' : value.phone1,
-                        'phone2' : value.phone2,
+                        'gender': value.gender || '',
+                        'phone1' : value.phone1 || '',
+                        'phone2' : value.phone2 || '',
                         'email': value.email,
                         'password': value.password,
                         'typeUser': value.typeUser,
-                        'matter' : value?.matter,
+                        'matter' : value.matter,
                         'orderReceived': value?.orderReceived
                     }
                     return

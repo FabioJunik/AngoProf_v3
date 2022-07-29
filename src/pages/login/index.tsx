@@ -38,6 +38,18 @@ interface StudentMatterProps{
     matterName: string;
 }
 
+interface TeacherOfStudentProps{
+    teacherId: string;
+    teacherName: string;
+    matterName: string[];
+}
+
+interface StudentOfTeacherProps{
+    studentId: string;
+    studentName: string;
+    matterName: string[];
+}
+
 interface userProps {
     id: string;
     name: string;
@@ -48,7 +60,8 @@ interface userProps {
     phone1?: string;
     phone2?: string;
     matter?: Array <MatterProps>;
-    teacher?: TeacherMatterProps[];
+    teacher?: TeacherOfStudentProps[];
+    student?: StudentOfTeacherProps[];
     orderReceived?: StudentMatterProps[];
     orderSent?: TeacherMatterProps[];
     typeUser: string;
@@ -111,6 +124,7 @@ const Login:NextPage = () => {
                 const teacherData = {
                     ...daseData,
                     'matter' : user.matter || [],
+                    'student': user.student || [],
                     'orderReceived': user.orderReceived || [],
                 }
                
