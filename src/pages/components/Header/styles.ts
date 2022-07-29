@@ -33,15 +33,6 @@ export const LeftSide = styled.div`
     display: flex;
     align-items: center;
 
-    .pic{
-        position: relative;
-        width: 5rem;
-        height: 5rem;
-        border-radius: 50%;
-        background-color: var(--blue-300);
-        cursor: pointer;
-    }
-
     .searchContainer{
         position: relative;
     }
@@ -50,19 +41,29 @@ export const LeftSide = styled.div`
         width: 25rem;
         height: 3.5rem;
         margin: 0 1rem 0 -15rem;
-        padding: 1rem;
+        padding: 1rem 2rem;
         background-color: var(--gray-100);
         font-size: 1.4rem;
         border: none;
-        border-radius: 0.7rem;
+        border-radius: 1.2rem;
     }
 `;
 
+export const UserPic = styled.div`
+    position: relative;
+    width: 5rem;
+    height: 5rem;
+    border-radius: 50%;
+    background-image: url(${props=>props.color});
+    border: 1px solid var(--blue-300);
+    background-size: cover;
+    cursor: pointer;
+`
 export const SearchIcon = styled(HiOutlineSearch)`
     position: absolute;
     top: 1rem;
     right: 2.5rem;
-    color: #bbb;
+    color: #aaa;
     font-size:1.6rem;
     cursor: poiter;
 `;

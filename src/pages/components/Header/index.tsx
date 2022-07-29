@@ -2,18 +2,22 @@ import type { NextPage} from 'next'
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
+import { useUser } from '../../hooks/useUser';
 import Logo from '../Logo';
-import {Container, NavBar, LeftSide, 
+import {Container, NavBar, LeftSide, UserPic,
           BellIcon, SettingsModal, UserIcon, ExitIcon, SearchIcon}
  from './styles';
 
 const Header:NextPage = () =>{
 
+  const {user} = useUser();
   const {pathname} = useRouter();
+
   const [modalVisible, setModalVisible] = useState<boolean>(false);
   const [searchText, setSearchText] = useState('');
 
     return (
+
       <Container>
         <Logo/>
         {pathname.startsWith('/teacher') ?
@@ -42,7 +46,11 @@ const Header:NextPage = () =>{
             </Link>
           </div>
           <BellIcon/>
-          <div className='pic' onClick={()=>setModalVisible(!modalVisible)}>
+          <UserPic 
+            className='pic' 
+            onClick={()=>setModalVisible(!modalVisible)}
+            color={user.imgURL}
+          >
             <SettingsModal className={modalVisible ? 'block' : 'none'}>
               <Link href={pathname.startsWith('/teacher') ? '/teacher/profile':'/student/profile'}>
                 <div className="lineModal">
@@ -57,7 +65,7 @@ const Header:NextPage = () =>{
                 </div>
               </Link>
             </SettingsModal>
-          </div>
+          </UserPic>
         </LeftSide>
       </Container>
     )
