@@ -1,5 +1,7 @@
 import { NextPage } from "next";
+import Router from "next/router";
 import { FormEvent, useState } from "react";
+
 import { database } from "../../services/firebase";
 
 import Logo from "../components/Logo";
@@ -57,13 +59,7 @@ const Register:NextPage = () =>{
         else{
             setError(false);
             writeDataInDatabase();
-            setForm({
-                name: '',
-                lastname: '',
-                email: '',
-                password: '',
-                confirmPass:''
-            });
+            Router.push('/login');
         }
 
     }

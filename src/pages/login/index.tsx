@@ -83,6 +83,7 @@ const Login:NextPage = () => {
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
     const [user, setUser] = useState<userProps[]>([]);
+    const [error, setError] = useState(false);
     const [loader , setLoader] = useState(false);
 
     useEffect(()=>{
@@ -154,6 +155,9 @@ const Login:NextPage = () => {
                     Router.push('/student');
                 }
             }
+            else 
+                setError(true);
+
         })
     }
 
@@ -168,10 +172,12 @@ const Login:NextPage = () => {
                     onChange={(e)=>setEmail(e.target.value)}
                 />
                 <Input 
+                    type="password"
                     placeholder="Senha"
                     value={password}
                     onChange={(e)=>setPassword(e.target.value)}
                 />
+                {error && <p className="error">E-mail ou senha incorreto</p>}
                 <Button>Entrar</Button>
                 <div className="socialMedia">
                     <SocialMidiaCard color="#3b5998">

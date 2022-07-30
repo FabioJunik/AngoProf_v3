@@ -56,6 +56,11 @@ export const LoginForm = styled.form`
 
         a{color: var(--blue-300);}
     }
+
+    .error{
+        color:var(--red-500);
+        font-size:1.4rem;
+    }
 `;
 
 export const Input = styled.input`
