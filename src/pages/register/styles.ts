@@ -65,6 +65,13 @@ export const RegisterForm = styled.form`
             }
         }
     }
+
+    p.error{
+        color:#fff;
+        width: 43rem;
+        font-size:1.4rem;
+        color:var(--red-500);
+    }
 `;
 
 export const Input = styled.input`

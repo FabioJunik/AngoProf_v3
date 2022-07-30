@@ -3,7 +3,7 @@ import { FormEvent, useState } from "react";
 import { database } from "../../services/firebase";
 
 import Logo from "../components/Logo";
-import { Button, Container, Input, RegisterForm } from "./styles";
+import { Button, Container, Input, RegisterForm} from "./styles";
 
 interface baseDataUserProps {
     name: string;
@@ -15,15 +15,61 @@ interface baseDataUserProps {
 
 const Register:NextPage = () =>{
 
-    const [name, setName] = useState<string>('');
-    const [lastname, setLastname] = useState<string>('');
-    const [email, setEmail] = useState<string>('');
-    const [password, setPassword] = useState<string>('');
+    const [messageError, setMessageError] = useState('');
+    const [error, setError] = useState(false);
     const [confirmPass, setConfirmPass] = useState<string>('');
     const [typeUser, setTypeUser] = useState<string>("teacher");
 
-    function writeDataInDatabase(e:FormEvent){
+    const [form, setForm] = useState<any>({
+        name: '',
+        lastname: '',
+        email: '',
+        password: '',
+        confirmPass:''
+    });
+
+    function handleChange(e: FormEvent){
+        const {target} = e;
+        let newProps = form;
+        newProps[target.name] = target.value;
+
+        setForm({...newProps});
+    }
+
+    function handleSubmit(e:FormEvent){
         e.preventDefault();
+        setError(true);
+
+        const lastNamePiece = form.lastname.trim().split(' ');
+        let emptyValues = Object.values(form).some(obj => obj == '');
+        
+        if(emptyValues){
+            setMessageError('Preencha todos os campos para continuar !');
+        }else if(form.name.trim().includes(' ')){
+            setMessageError('Nome invalido!');
+        }else if(lastNamePiece.length > 1 && lastNamePiece[0].length > 3){
+            setMessageError('Sobrenone invalido!');
+        }
+        else if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(form.email))
+            setMessageError('E-mail invalido!');
+        else if (form.password !== form.confirmPass)
+            setMessageError('Verificar senha!');
+        else{
+            setError(false);
+            writeDataInDatabase();
+            setForm({
+                name: '',
+                lastname: '',
+                email: '',
+                password: '',
+                confirmPass:''
+            });
+        }
+
+    }
+
+    function writeDataInDatabase(){
+        const {name, lastname, email, password} = form;
 
         const ref = database.ref('users');
 
@@ -41,22 +87,25 @@ const Register:NextPage = () =>{
     return(
         <Container>
             <Logo/>
-            <RegisterForm onSubmit={writeDataInDatabase}>
+            <RegisterForm onSubmit={handleSubmit}>
                 <h2>Crie sua conta</h2>
                 <Input 
                     placeholder="Nome"
-                    value={name}
-                    onChange={(e)=>setName(e.target.value)}
+                    name="name"
+                    value={form.name}
+                    onChange={(e)=>handleChange(e)}
                 />
                 <Input 
                     placeholder="Sobrenome"
-                    value={lastname}
-                    onChange={(e)=>setLastname(e.target.value)}
+                    name="lastname"
+                    value={form.lastname}
+                    onChange={(e)=>handleChange(e)}
                 />
                 <Input 
                     placeholder="E-mail"
-                    value={email}
-                    onChange={(e)=>setEmail(e.target.value)}
+                    name="email"
+                    value={form.email}
+                    onChange={(e)=>handleChange(e)}
                 />
                 <div>
                     <p>O que pretendes ser </p>
@@ -82,15 +131,20 @@ const Register:NextPage = () =>{
                     </div>
                 </div>
                 <Input 
+                    type="password"
                     placeholder="Senha"
-                    value={password}
-                    onChange={(e)=>setPassword(e.target.value)}
+                    name="password"
+                    value={form.password}
+                    onChange={(e)=>handleChange(e)}
                 />
                 <Input 
+                    type="password"
                     placeholder="Confirmar senha"
-                    value={confirmPass}
-                    onChange={(e)=>setConfirmPass(e.target.value)}
+                    name="confirmPass"
+                    value={form.confirmPass}
+                    onChange={(e)=>handleChange(e)}
                 />
+                {error && <p className="error">{messageError}</p>}
                 <Button type="submit">Criar conta</Button>
             </RegisterForm>
             <div className="content">
