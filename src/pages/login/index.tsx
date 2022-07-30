@@ -2,9 +2,12 @@ import { NextPage } from "next";
 import Link from "next/link";
 import Router from "next/router";
 import { FormEvent, useEffect, useState } from "react";
-import { database } from "../../services/firebase";
-import Logo from "../components/Logo";
+
 import { useUser } from "../hooks/useUser";
+import { database } from "../../services/firebase";
+
+import Logo from "../components/Logo";
+import {Loader} from "../components/Loader";
 import { Button, Container, FacebookIcon, GoogleIcon, 
         Input, LoginForm, SocialMidiaCard } 
         from "./styles";
@@ -75,6 +78,7 @@ const Login:NextPage = () => {
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
     const [user, setUser] = useState<userProps[]>([]);
+    const [loader , setLoader] = useState(false);
 
     useEffect(()=>{
         const userRef = database.ref('users');
@@ -132,10 +136,12 @@ const Login:NextPage = () => {
                 }
                
                 if(user.typeUser === 'teacher'){
+                    setLoader(true);
                     provideUser(teacherData);
                     localStorage.setItem('user', JSON.stringify(teacherData));
                     Router.push('/teacher');
                 }else{
+                    setLoader(true);
                     provideUser(studentData);
                     localStorage.setItem('user', JSON.stringify(studentData));
                     Router.push('/student');
@@ -175,6 +181,7 @@ const Login:NextPage = () => {
                     <Link href='/register'>Cadastrar-se</Link>
                 </div>
             </LoginForm>
+            {loader && <Loader/>}
         </Container>
     )
 }
