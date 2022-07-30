@@ -61,6 +61,18 @@ export const Card = styled.form`
         font-size: 1.4rem;
     }
 
+    textarea{
+        min-height: 20rem;
+        padding : 2rem; 
+        margin-bottom: 2rem;
+
+        font-size: 1.6rem;
+        border: none;
+        border-radius: 1rem;
+        background-color: var(--gray-100);
+        resize: none;
+    }
+
     input[type="file"] {
         display: none;
     }

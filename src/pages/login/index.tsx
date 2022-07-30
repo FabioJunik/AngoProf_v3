@@ -68,6 +68,7 @@ interface userProps {
     orderReceived?: StudentMatterProps[];
     orderSent?: TeacherMatterProps[];
     imgURL?: string;
+    bio?: string;
     typeUser: string;
 }
 
@@ -130,6 +131,7 @@ const Login:NextPage = () => {
                 }
                 const teacherData = {
                     ...daseData,
+                    'bio' : user.bio || '',
                     'matter' : user.matter || [],
                     'student': user.student || [],
                     'orderReceived': user.orderReceived || [],

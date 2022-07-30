@@ -15,6 +15,7 @@ interface UserProps {
     phone1: string;
     phone2: string;
     imgURL?: string;
+    bio?: string;
 }
 
 const Profile:NextPage = ()=>{
@@ -28,9 +29,11 @@ const Profile:NextPage = ()=>{
     const [phone1, setPhone1] = useState<string>(user.phone1 || '');
     const [phone2, setPhone2] = useState<string>(user.phone2 || '');
     const [imgURL, setImgURL] = useState<string>(user.imgURL || '');
+    const [bio, setBio] = useState<string>(user.bio || '');
 
     const [imgProcess, setImgProcess] = useState<number>(0);
 
+    console.log(bio)
     function updateImage(event:FormEvent){
         event.preventDefault();
 
@@ -72,7 +75,8 @@ const Profile:NextPage = ()=>{
             password,
             phone1,
             phone2,
-            imgURL
+            imgURL,
+            bio
         }
 
         ref.child(user.id).update(userData);
@@ -106,6 +110,12 @@ const Profile:NextPage = ()=>{
                         <Input placeholder='E-mail' value={email}
                         onChange={e=>setEmail(e.target.value)}
                     />
+                        <Button onClick={updateUserData}>Salvar</Button>
+                    </Card>
+                    <Card>
+                        <h2>Biografia</h2>
+                        <textarea value={bio} onChange={(e)=>setBio(e.target.value)}>    
+                        </textarea>
                         <Button onClick={updateUserData}>Salvar</Button>
                     </Card>
                 </div>
