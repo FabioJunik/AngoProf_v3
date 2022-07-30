@@ -15,11 +15,12 @@ export const Button = styled(sc.Button)`
 
 export const StudentCard = styled.div`
     width: 45%;
-    height: 7.5rem;    
-    padding: 2rem;
+    /* height: 8rem;     */
+    padding: 1.8rem 2.5rem;
     
-    border-radius: 1rem;
+    border-radius: 1.5rem;
     background-color: var(--white);
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
 
     display:flex;
     justify-content: space-between;
@@ -28,14 +29,6 @@ export const StudentCard = styled.div`
     div:first-child{
         display: flex;
         gap: 2rem;
-    }
-
-    .pic{
-        width:5rem;
-        height:5rem;
-
-        border-radius: 50%;
-        background-color: var(--blue-300);
     }
 
     h2{
@@ -49,3 +42,7 @@ export const StudentCard = styled.div`
     }
 `;
 
+export const Pic = styled(sc.Pic)`
+    min-width:6rem;
+    min-height:6rem;
+`

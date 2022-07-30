@@ -103,6 +103,7 @@ const Login:NextPage = () => {
                     'typeUser': value.typeUser,
                     'matter' : value?.matter,
                     'teacher' : value?.teacher,
+                    'student' : value.student,
                     'orderSent' : value?.orderSent,
                     'orderReceived': value?.orderReceived,
                 }

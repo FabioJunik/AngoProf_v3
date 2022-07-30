@@ -7,7 +7,7 @@ export const Content = styled.div`
     padding: 10rem 5rem;
 
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: start;
     flex-wrap: wrap;
     gap: 5rem;
