@@ -1,14 +1,15 @@
 import { NextPage } from "next";
+import Link from 'next/link';
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 
 import { database } from "../../../services/firebase";
 import { useUser } from "../../hooks/useUser";
 
-import { Container, TeacherCard, StarIcon} from "./styles";
 import Header from "../../components/Header";
+import {Loader} from "../../components/Loader";
+import { Container, TeacherCard, StarIcon} from "./styles";
 import { Content, Title, Button } from "../../components/styledComponents";
-import Teacher from "../teacher";
 
 
 interface MatterProps{
@@ -59,8 +60,11 @@ interface TeacherProps  {
 const Search:NextPage = () => {
     const {user} = useUser();
     const {query} = useRouter();
+    const [matterSearch, setMatterSearch] = useState<string>('');
     const [teacher, setTeacher] = useState<UserProps[]>([]);
     const [teacherFind, setTeacherFind] = useState<UserProps[]>([]);
+
+    useEffect(()=>setMatterSearch(query.id?.toString() || ''),[query.id]);
 
     useEffect(()=>{
         const userRef = database.ref('users');
@@ -79,17 +83,15 @@ const Search:NextPage = () => {
         })
     },[]);
 
-    useEffect(()=>{searchTeacher()},[query.id]);
-
-    function searchTeacher(){
+    useEffect(()=>{
         setTeacherFind([])
-        return teacher.map(e=> e?.matter?.filter(element=>{
-            
-            if(element.name.toLowerCase() === query.id?.toString().toLowerCase()){
+        teacher.map(e=> e?.matter?.filter(element=>{
+            if(element.name.toLowerCase() === matterSearch.toLowerCase()){
                 setTeacherFind(preTeacher=>[...preTeacher,e]);
             }
         }))
-    }
+    },[matterSearch]);
+
 
     function sendClassOrder(teacherId:string,teacherName:string, matterName: string){
         const ref = database.ref('users/');
@@ -148,6 +150,7 @@ const Search:NextPage = () => {
             <Header/>
             <Content>
                 <Title>Professores de : {query.id}</Title>
+                {!teacherFind && <Loader/>}
                 {teacherFind &&
                     teacherFind.map(teacher=>(
                         <TeacherCard key={teacher.id}>
@@ -168,7 +171,9 @@ const Search:NextPage = () => {
                                     color='var(--blue-500)'
                                     onClick={()=>sendClassOrder(teacher.id,teacher.name,query.id+'')}
                                 >Adicionar</Button>
-                                <Button color='var(--blue-500)'>Perfil</Button>
+                                <Link href={`http://localhost:3000/student/teacherprofile/${teacher.id}`}>
+                                    <Button color='var(--blue-500)'>Perfil</Button>
+                                </Link>
                             </div>                    
                         </TeacherCard>
                     ))

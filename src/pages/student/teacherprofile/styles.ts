@@ -12,8 +12,8 @@ export const Content = styled.div`
     background-color: var(--gray-100);
 
     display: grid;
-    grid-template-columns: auto 45rem;
-    grid-template-areas: 'column1 column2';
+    grid-template-columns: 40rem auto;
+    grid-template-areas: 'column2 column1';
 
     .column1 {
         grid-area: column1;
@@ -24,7 +24,7 @@ export const Content = styled.div`
             padding: 3rem;
             border-radius: 2rem;
             box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
-            
+
             p{
                 font-size:1.4rem;
                 line-height:1.7;
@@ -40,7 +40,7 @@ export const Content = styled.div`
             
             div{
                 width: 45%;
-                max-width:35rem;
+                max-width:40rem;
                 min-width: 25rem;
                 padding: 3rem 2rem;
                 margin-top: 2rem;
@@ -58,11 +58,6 @@ export const Content = styled.div`
 
     .column2 {
         grid-area: column2;
-        /* background:red; */
-        display: flex;
-        /* justify-content: center; */
-        align-items: center;
-        flex-direction:column;
     }
 `;
 
