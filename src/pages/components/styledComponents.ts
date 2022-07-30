@@ -84,11 +84,7 @@ export const Card = styled.div`
         }
 
         .pic{
-            min-width: 7.5rem;
-            min-height: 7.5rem;
-
-            border-radius: 50%;
-            background-color: var(--blue-300);
+            
         }
     }
 
@@ -99,3 +95,14 @@ export const Card = styled.div`
     }
 `;
 
+export const Pic = styled.div`
+    min-width: 7.5rem;
+    min-height: 7.5rem;
+
+    border-radius: 50%;
+    border: 2px solid var(--blue-300);
+    
+    background-color: var(--blue-300);
+    background-image: url(${props=>props.color});
+    background-size:cover;
+`;

@@ -4,7 +4,9 @@ import * as sc from "../components/styledComponents"
 
 export const Container = styled.div``;
 
-export const Content = styled(sc.Content)``;
+export const Content = styled(sc.Content)`
+    justify-content: flex-start;
+`;
 
 export const OrderCard = styled(sc.Card)`
     .midiumCard{

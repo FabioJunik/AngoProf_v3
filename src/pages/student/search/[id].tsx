@@ -9,7 +9,7 @@ import { useUser } from "../../hooks/useUser";
 import Header from "../../components/Header";
 import {Loader} from "../../components/Loader";
 import { Container, TeacherCard, StarIcon} from "./styles";
-import { Content, Title, Button } from "../../components/styledComponents";
+import { Content, Title, Button, Pic } from "../../components/styledComponents";
 
 
 interface MatterProps{
@@ -34,6 +34,7 @@ interface UserProps {
     name: string;
     lastname: string;
     matter?: MatterProps[];
+    imgURL: string;
     typeUser: string;
 }
 
@@ -41,6 +42,7 @@ interface StudentMatterProps{
     studentId: string;
     studentName: string;
     matterName: string;
+    imgURL: string;
 }
 
 interface TeacherProps  {
@@ -53,6 +55,7 @@ interface TeacherProps  {
     phone1?: string;
     phone2?: string;
     matter?: Array <MatterProps>;
+    imgURL: string;
     orderReceived?: StudentMatterProps[];
     typeUser: string;
 }
@@ -77,6 +80,7 @@ const Search:NextPage = () => {
                     'lastname': value.lastname,
                     'typeUser': value.typeUser,
                     'matter': value?.matter,
+                    'imgURL': value.imgURL
                 }
             });
             setTeacher(userResult.filter(element=>element.typeUser === 'teacher'));
@@ -93,19 +97,24 @@ const Search:NextPage = () => {
     },[matterSearch]);
 
 
-    function sendClassOrder(teacherId:string,teacherName:string, matterName: string){
+    function sendClassOrder(teacherId:string,
+        teacherName:string, teacherLastname:string,
+        imgURL: string, matterName: string
+    ){
         const ref = database.ref('users/');
 
         const matterData ={
             teacherId,
-            teacherName,
+            teacherName: teacherName+' '+teacherLastname,
             matterName,
+            imgURL
         }
 
         const orderData = {
             'studentId': user.id,
             'studentName': user.name +' '+user.lastname,
-            'matterName': matterName
+            'matterName': matterName,
+            'imgURL': user.imgURL || ''
         }
 
         user.orderSent = user.orderSent ? [... user.orderSent,matterData] : [matterData];
@@ -130,7 +139,8 @@ const Search:NextPage = () => {
                         'password': value.password,
                         'typeUser': value.typeUser,
                         'matter' : value.matter,
-                        'orderReceived': value?.orderReceived
+                        'orderReceived': value?.orderReceived,
+                        'imgURL': value.imgURL || ''
                     }
                     return
                 }
@@ -152,13 +162,13 @@ const Search:NextPage = () => {
                 <Title>Professores de : {query.id}</Title>
                 {!teacherFind && <Loader/>}
                 {teacherFind &&
-                    teacherFind.map(teacher=>(
-                        <TeacherCard key={teacher.id}>
+                    teacherFind.map(({id,imgURL, matter, name, lastname})=>(
+                        <TeacherCard key={id}>
                             <div className='topCard'>
-                                <div className='pic'></div>
+                                <Pic color={imgURL}></Pic>
                                 <div>
-                                    <h2>{teacher.name} {teacher.lastname}</h2>
-                                    <h3>{teacher.matter?.map(matter=>matter.name +' | ')}</h3>
+                                    <h2>{name} {lastname}</h2>
+                                    <h3>{matter?.map(matter=>matter.name +' | ')}</h3>
                                     <div>
                                         <StarIcon/>
                                         <StarIcon/><StarIcon/>
@@ -169,9 +179,9 @@ const Search:NextPage = () => {
                             <div className='bottomCard'>
                                 <Button 
                                     color='var(--blue-500)'
-                                    onClick={()=>sendClassOrder(teacher.id,teacher.name,query.id+'')}
+                                    onClick={()=>sendClassOrder(id,name,lastname,imgURL,query.id+'')}
                                 >Adicionar</Button>
-                                <Link href={`http://localhost:3000/student/teacherprofile/${teacher.id}`}>
+                                <Link href={`http://localhost:3000/student/teacherprofile/${id}`}>
                                     <Button color='var(--blue-500)'>Perfil</Button>
                                 </Link>
                             </div>                    

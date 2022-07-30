@@ -33,24 +33,28 @@ interface TeacherMatterProps{
     teacherId: string;
     teacherName: string;
     matterName: string;
+    imgURL: string;
 }
 
 interface StudentMatterProps{
     studentId: string;
     studentName: string;
     matterName: string;
+    imgURL: string;
 }
 
 interface TeacherOfStudentProps{
     teacherId: string;
     teacherName: string;
     matterName: string[];
+    imgURL: string;
 }
 
 interface StudentOfTeacherProps{
     studentId: string;
     studentName: string;
     matterName: string[];
+    imgURL: string;
 }
 
 interface userProps {

@@ -3,7 +3,7 @@ import { useUser } from '../hooks/useUser';
 import { database } from '../../services/firebase';
 
 import Header from '../components/Header';
-import {Title} from "../components/styledComponents";
+import {Title, Pic} from "../components/styledComponents";
 import {Container, Content, OrderCard, Button} from './homeStyles';
 
 
@@ -11,18 +11,21 @@ interface TeacherMatterProps{
     teacherId: string;
     teacherName: string;
     matterName: string;
+    imgURL: string;
 }
 
 interface TeacherOfStudentProps{
     teacherId: string;
     teacherName: string;
     matterName: string[];
+    imgURL: string;
 }
 
 interface StudentOfTeacherProps{
     studentId: string;
     studentName: string;
     matterName: string[];
+    imgURL: string;
 }
 
 interface StudentProps  {
@@ -36,6 +39,7 @@ interface StudentProps  {
     phone2?: string;
     teacher?: TeacherOfStudentProps[];
     orderSent: Array <TeacherMatterProps>;
+    imgURL: string;
     typeUser: string;
 }
 
@@ -62,6 +66,7 @@ const TeacherHome:NextPage = () =>{
                         'phone2' : value?.phone2 || '',
                         'email': value.email,
                         'password': value.password,
+                        'imgURL' : value.imgURL,
                         'typeUser': value.typeUser,
                         'teacher' : value?.teacher || [],
                         'orderSent': value.orderSent || []
@@ -86,16 +91,18 @@ const TeacherHome:NextPage = () =>{
     function linkUsers (student:StudentProps, matterName:string){        
         const ref = database.ref('users/');
 
-        const studentData ={   
+        const studentData:StudentOfTeacherProps ={   
             studentId: student.id,
             studentName: student.name +' '+student.lastname,
-            matterName: [matterName]
+            matterName: [matterName],
+            imgURL: student.imgURL
         }
 
-        const teacherData = {
+        const teacherData:TeacherOfStudentProps = {
             teacherId: user.id,
             teacherName: user.name +' '+ user.lastname,
-            matterName: [matterName]
+            matterName: [matterName],
+            imgURL: student.imgURL
         }
 
         const studentFound = user?.student?.find(element => element.studentId === student.id);
@@ -122,7 +129,6 @@ const TeacherHome:NextPage = () =>{
             student.teacher = student.teacher ? [...student.teacher, teacherData]: [teacherData]; 
         }
 
-        
         localStorage.setItem('user', JSON.stringify(user));
         ref.child(student.id).update(student);
         ref.child(user.id).update(user);
@@ -138,7 +144,7 @@ const TeacherHome:NextPage = () =>{
                     user?.orderReceived?.map(order=>(
                         <OrderCard key={order.studentId}>
                             <div className='topCard'>
-                                <div className='pic'></div>
+                                <Pic color={order.imgURL}></Pic>
                                 <div>
                                     <h2>{order.studentName}</h2>
                                     <h3>{order.matterName}</h3>
