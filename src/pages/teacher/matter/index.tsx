@@ -67,6 +67,14 @@ const Matter:NextPage = () =>{
         localStorage.setItem('user', JSON.stringify(user));
         
         ref.child(user.id).update(user);
+        setName('');
+        setOnBasicPrice('');
+        setPreBasicPrice('');
+        setOnIntermediaryPrice('');
+        setPreIntermediaryPrice('');
+        setOnAdvancedPrice('');
+        setPreAdvancedPrice('');
+        alert('Matéria adicionada com sucesso!');
     }
 
     console.log(user)

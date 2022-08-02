@@ -150,7 +150,8 @@ const Search:NextPage = () => {
         userResult.orderReceived = userResult.orderReceived ? 
         [...userResult.orderReceived, orderData] : [orderData];
                 
-        ref.child(userResult.id).update(userResult);            
+        ref.child(userResult.id).update(userResult);    
+        alert('Pedido enviado com sucesso!');
         console.log(userResult)
     }
 

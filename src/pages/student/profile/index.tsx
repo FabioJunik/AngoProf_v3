@@ -88,7 +88,7 @@ const Profile:NextPage = ()=>{
                         <h2>Foto de perfil</h2>
                         {imgURL && <PicContainer color={imgURL} htmlFor="image"/>}
                         <input type="file" id='image'/>
-                        <Button type='submit'>{imgProcess == 0 ? 'Processar imagem': 'Guardar'}</Button>
+                        <Button type='submit'>{!imgProcess ? 'Processar imagem': 'Guardar'}</Button>
                     </Card>
                     <Card>
                         <h2>Contacto</h2>

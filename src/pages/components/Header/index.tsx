@@ -35,16 +35,18 @@ const Header:NextPage = () =>{
       </NavBar>  
         }
         <LeftSide>
-          <div className='searchContainer'>
-            <input 
-              placeholder='o que queres aprender ?'
-              value={searchText}
-              onChange = {({target})=>setSearchText(target.value)}
-            />
-            <Link href={`http://localhost:3000/student/search/${searchText}`}>
-              <SearchIcon/>
-            </Link>
-          </div>
+          {!pathname.startsWith('/teacher') &&
+            <div className='searchContainer'>
+              <input 
+                placeholder='o que queres aprender ?'
+                value={searchText}
+                onChange = {({target})=>setSearchText(target.value)}
+              />
+              <Link href={`http://localhost:3000/student/search/${searchText}`}>
+                <SearchIcon/>
+              </Link>
+            </div>
+          }
           <BellIcon/>
           <UserPic 
             className='pic' 

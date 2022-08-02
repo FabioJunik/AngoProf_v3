@@ -19,10 +19,9 @@ const Register:NextPage = () =>{
 
     const [messageError, setMessageError] = useState('');
     const [error, setError] = useState(false);
-    const [confirmPass, setConfirmPass] = useState<string>('');
     const [typeUser, setTypeUser] = useState<string>("teacher");
 
-    const [form, setForm] = useState<any>({
+    const [form, setForm] = useState<>({
         name: '',
         lastname: '',
         email: '',
